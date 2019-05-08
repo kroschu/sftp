@@ -7,9 +7,21 @@ MAINTAINER Volodymyr KOVALENKO [blog.uabp.ml]
 # - Fix default group (1000 does not exist)
 # - OpenSSH needs /var/run/sshd to run
 # - Remove generic host keys, entrypoint generates unique keys
-RUN echo "@community http://dl-4.alpinelinux.org/alpine/v3.8/main" >> /etc/apk/repositories && \
-    apk add --no-cache  openssh openssh-sftp-server && \
-    sed -i 's/GROUP=1000/GROUP=100/' /etc/default/useradd && \
+RUN \
+ echo "**** install packages ****" && \
+ apk add --no-cache \
+	curl \
+	jq \
+	openssl \
+    openssh \
+    openssh-sftp-server \
+	p7zip \
+	rsync \
+	tar \
+	unrar \
+	unzip
+
+RUN sed -i 's/GROUP=1000/GROUP=100/' /etc/default/useradd && \
     mkdir -p /var/run/sshd && \
     rm -f /etc/ssh/ssh_host_*key*
 
