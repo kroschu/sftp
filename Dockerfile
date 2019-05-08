@@ -1,4 +1,5 @@
-FROM aarch64/alpine
+FROM datenfahrt/aarch64-alpine
+
 MAINTAINER Volodymyr KOVALENKO [blog.uabp.ml]
 
 # Steps done in one RUN layer:
