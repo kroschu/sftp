@@ -1,19 +1,13 @@
-FROM lsiobase/alpine.arm64:3.8 as buildstage
-
-MAINTAINER Volodymyr KOVALENKO [blog.uabp.ml]
+FROM arm64v8/debian:sid
+MAINTAINER Adrian Dvergsdal [atmoz.net]
 
 # Steps done in one RUN layer:
 # - Install packages
-# - Fix default group (1000 does not exist)
 # - OpenSSH needs /var/run/sshd to run
 # - Remove generic host keys, entrypoint generates unique keys
-RUN \
- echo "**** install packages ****" && \
- apk add --no-cache \
-    openssh \
-    openssh-sftp-server 
-
-RUN sed -i 's/GROUP=1000/GROUP=100/' /etc/default/useradd && \
+RUN apt-get update && \
+    apt-get -y install openssh-server && \
+    rm -rf /var/lib/apt/lists/* && \
     mkdir -p /var/run/sshd && \
     rm -f /etc/ssh/ssh_host_*key*
 
@@ -24,3 +18,4 @@ COPY files/entrypoint /
 EXPOSE 22
 
 ENTRYPOINT ["/entrypoint"]
+
