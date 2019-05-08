@@ -10,16 +10,8 @@ MAINTAINER Volodymyr KOVALENKO [blog.uabp.ml]
 RUN \
  echo "**** install packages ****" && \
  apk add --no-cache \
-	curl \
-	jq \
-	openssl \
     openssh \
-    openssh-sftp-server \
-	p7zip \
-	rsync \
-	tar \
-	unrar \
-	unzip
+    openssh-sftp-server 
 
 RUN sed -i 's/GROUP=1000/GROUP=100/' /etc/default/useradd && \
     mkdir -p /var/run/sshd && \
