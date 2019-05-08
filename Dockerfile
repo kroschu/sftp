@@ -1,4 +1,4 @@
-FROM arm64v8/debian:stretch
+FROM aarch64/debian:stretch
 MAINTAINER Volodymyr KOVALENKO [blog.uabp.ml]
 
 # Steps done in one RUN layer:
